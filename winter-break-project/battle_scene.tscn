@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbbo0lmh2ykln"]
+
+[ext_resource type="PackedScene" uid="uid://oe4ljcw2dpb6" path="res://enemy_group.tscn" id="1_6vnp5"]
+[ext_resource type="PackedScene" uid="uid://n445uhrqceva" path="res://party.tscn" id="2_48e5n"]
+[ext_resource type="PackedScene" uid="uid://cn18ia7sr02y5" path="res://spawn_point.tscn" id="3_kv37i"]
+
+[node name="BattleScene" type="Node2D"]
+
+[node name="EnemyGroup" parent="." instance=ExtResource("1_6vnp5")]
+position = Vector2(-12, -10)
+
+[node name="Party" parent="." instance=ExtResource("2_48e5n")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="choice" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -369.0
+offset_top = -206.0
+offset_right = 307.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Attack" type="Button" parent="CanvasLayer/choice"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Attack"
+
+[node name="Inventory" type="Button" parent="CanvasLayer/choice"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Inventory"
+
+[node name="Run" type="Button" parent="CanvasLayer/choice"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Run"
+
+[node name="Spawn Point" parent="." instance=ExtResource("3_kv37i")]
+
+[connection signal="next_player" from="EnemyGroup" to="Party" method="_on_enemy_group_next_player"]
+[connection signal="pressed" from="CanvasLayer/choice/Attack" to="EnemyGroup" method="_on_attack_pressed"]
