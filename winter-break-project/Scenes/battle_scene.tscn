@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbbo0lmh2ykln"]
+[gd_scene load_steps=5 format=3 uid="uid://bbbo0lmh2ykln"]
 
 [ext_resource type="PackedScene" uid="uid://oe4ljcw2dpb6" path="res://Scenes/enemy_group.tscn" id="1_6vnp5"]
+[ext_resource type="Script" path="res://Scenes/combat_engine.gd" id="1_18plu"]
 [ext_resource type="PackedScene" uid="uid://n445uhrqceva" path="res://Scenes/party.tscn" id="2_48e5n"]
 [ext_resource type="PackedScene" uid="uid://cn18ia7sr02y5" path="res://Scenes/spawn_point.tscn" id="3_kv37i"]
 
 [node name="BattleScene" type="Node2D"]
+script = ExtResource("1_18plu")
 
 [node name="EnemyGroup" parent="." instance=ExtResource("1_6vnp5")]
 position = Vector2(-12, -10)
@@ -60,24 +62,28 @@ grow_vertical = 0
 size_flags_vertical = 8
 
 [node name="Attack1" type="Button" parent="CanvasLayer/attack_options"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Attack1"
 
 [node name="Attack2" type="Button" parent="CanvasLayer/attack_options"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Attack2"
 
 [node name="Attack3" type="Button" parent="CanvasLayer/attack_options"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Attack3"
 
 [node name="Attack4" type="Button" parent="CanvasLayer/attack_options"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -85,6 +91,7 @@ text = "Attack4"
 
 [node name="Spawn Point" parent="." instance=ExtResource("3_kv37i")]
 
-[connection signal="next_player" from="EnemyGroup" to="Party" method="_on_enemy_group_next_player"]
-[connection signal="pressed" from="CanvasLayer/combat_options/Attack" to="EnemyGroup" method="_on_attack_pressed"]
-[connection signal="pressed" from="CanvasLayer/attack_options/Attack1" to="EnemyGroup" method="_on_attack_pressed"]
+[connection signal="next_player" from="." to="Party" method="_on_battle_scene_next_player"]
+[connection signal="pressed" from="CanvasLayer/combat_options/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="CanvasLayer/attack_options/Attack1" to="." method="_on_attack_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/attack_options/Attack2" to="." method="_on_attack_2_pressed"]

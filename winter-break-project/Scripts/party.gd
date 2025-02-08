@@ -5,6 +5,7 @@ extends Node2D
 var party: Array = []
 var index: int = 0
 var party_target = []
+var attack_types: Array = []
 
 func _ready():
 	party = get_children()
@@ -32,21 +33,25 @@ func _ready():
 func _process(delta):
 	if len(party_target) == len(party):
 		#for target in len(party):
-		party[0].attack_begin(0) 
+		party[0].attack_begin(0, attack_types[0]) 
 
-func _on_enemy_group_next_player():
+func _on_battle_scene_next_player() -> void:
 	if index < party.size() - 1:
+		$"..".show_attack_options()
 		index += 1
 		switch_focus(index, index - 1)
 	else:
 		index = 0
 		switch_focus(index, party.size() -1)
+	
 
 func switch_focus(x, y):
 	party[x].focus()
 	party[y].unfocus()
 	
 func show_combat_options():
+	attack_types.clear()
+	$"..".curr_att = 0
 	combat_options.show()
 	combat_options.find_child("Attack").grab_focus()
 	

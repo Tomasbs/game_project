@@ -4,12 +4,13 @@ extends CharacterBody2D
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var anim_state = animation_tree.get("parameters/playback")
 
-enum player_states {IDLE, WALK_RIGHT, WALK_LEFT, ATTACK}
+enum player_states {IDLE, WALK_RIGHT, WALK_LEFT, ATTACK_1, ATTACK_2}
 var current_states = player_states.IDLE
 
 var attacking: bool = false
 var walk_back: bool = false
 var current_att: int
+var attack_type: int
 
 var home_x: int 
 var home_y: int
@@ -31,11 +32,16 @@ func _process(delta):
 			walk_right()
 		player_states.WALK_LEFT:
 			walk_left()
-		player_states.ATTACK:
-			attack()
+		player_states.ATTACK_1:
+			attack_1()
+		player_states.ATTACK_2:
+			attack_2()
 	if attacking:
 		if $".".position.x >= $"..".party_target[current_att].position.x - 160:
-				current_states = player_states.ATTACK
+			if attack_type == 0:
+				current_states = player_states.ATTACK_1
+			elif attack_type == 1:
+				current_states = player_states.ATTACK_2
 		else:
 			if $".".position.x < $"..".party_target[current_att].position.x - 160:
 				current_states = player_states.WALK_RIGHT
@@ -49,13 +55,15 @@ func _process(delta):
 	if walk_back:
 		if $".".position.x <= home_x:
 			if current_att + 1 < len($"..".party_target):
-				$"..".party[current_att + 1].attack_begin(current_att + 1) 
+				$"..".party[current_att + 1].attack_begin(current_att + 1, $"..".attack_types[current_att]) 
 				current_states = player_states.IDLE
 			else:
 				current_states = player_states.IDLE
 				walk_back = false
 				$"..".show_combat_options()
 				#$"./Focus".show()
+
+
 		else:
 			if $".".position.x > home_x:
 				current_states = player_states.WALK_LEFT
@@ -65,8 +73,9 @@ func _process(delta):
 			if $".".position.y < home_y:
 				$".".position.y += 250 * get_physics_process_delta_time()
 	
-func attack_begin(target):
+func attack_begin(target, type):
 	current_att = target
+	attack_type = type
 	if walk_back == false:
 		attacking = true
 	
@@ -92,6 +101,10 @@ func walk_left():
 	animation_tree.set("parameters/Walk/blend_position", Vector2(-1, 0))
 	anim_state.travel("Walk")	
 
-func attack():
-	animation_tree.set("parameters/Attack/blend_position", Vector2(1, 0))
-	anim_state.travel("Attack")	
+func attack_1():
+	animation_tree.set("parameters/Attack_1/blend_position", Vector2(1, 0))
+	anim_state.travel("Attack_1")	
+	
+func attack_2():
+	animation_tree.set("parameters/Attack_2/blend_position", Vector2(1, 0))
+	anim_state.travel("Attack_2")	

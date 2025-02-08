@@ -1,0 +1,104 @@
+extends Node2D
+var action_queue: Array = []
+var is_battling: bool = false
+var index: int = 0
+var curr_att: int = 0
+
+
+
+signal next_player
+
+func _ready():
+	show_combat_options()
+	
+func _process(_delta):
+	if not $CanvasLayer/combat_options.visible and not is_battling and not $CanvasLayer/attack_options.visible:
+		if Input.is_action_just_pressed("up"):
+			if index > 0:
+				index -= 1
+				switch_focus(index, index + 1)
+		if Input.is_action_just_pressed("down"):
+			if index < $EnemyGroup.enemies.size() - 1:
+				index += 1
+				switch_focus(index, index - 1)
+		if Input.is_action_just_pressed("accept"):
+			if len($"Party".party_target) != len($"Party".party):
+				curr_att += 1
+				$"Party".party_target.push_back($EnemyGroup.enemies[index])	
+			action_queue.push_back(index)
+			emit_signal("next_player")
+			
+	if action_queue.size() == $"Party".party.size() and not is_battling:
+		is_battling = true
+		#$"../Party/Player/Focus".hide()
+		$"Party".party[0]._focus.hide()
+		_action(action_queue)
+		
+func _action(stack):
+	$EnemyGroup.enemies[index].unfocus()
+	#for i in stack:
+	#	enemies[i].take_damage(1)
+	#	await get_tree().create_timer(1.5).timeout
+	action_queue.clear()
+	is_battling = false
+	#$"../Party/Player/Focus".show()
+	#show_choice()			
+	
+func _reset_focus():
+	index = 0
+	for enemy in $EnemyGroup.enemies:
+		enemy.unfocus()
+
+func _start_choosing():
+	_reset_focus()
+	$EnemyGroup.enemies[0].focus()
+
+func _continue_choosing():
+	_reset_focus()
+	$EnemyGroup.enemies[0].focus()
+	
+func _on_attack_pressed():
+	$"Party".party[0]._focus.show()
+	$CanvasLayer/combat_options.hide()
+	show_attack_options()
+			
+func switch_focus(x, y):
+	$EnemyGroup.enemies[x].focus()
+	$EnemyGroup.enemies[y].unfocus()
+	
+func show_combat_options():
+	$CanvasLayer/combat_options.show()
+	$CanvasLayer/combat_options.find_child("Attack").grab_focus()
+	
+func show_attack_options():
+	_reset_focus()
+	$CanvasLayer/attack_options.show()
+	if len($"Party".party[curr_att].attacks) >= 1:
+		$CanvasLayer/attack_options/Attack1.show()
+		$CanvasLayer/attack_options/Attack1.text = $"Party".party[curr_att].attacks[0]
+	if len($"Party".party[curr_att].attacks) >= 2:
+		$CanvasLayer/attack_options/Attack2.show()
+		$CanvasLayer/attack_options/Attack2.text = $"Party".party[curr_att].attacks[1]
+	if len($"Party".party[curr_att].attacks) >= 3:
+		$CanvasLayer/attack_options/Attack3.show()
+		$CanvasLayer/attack_options/Attack3.text = $"Party".party[curr_att].attacks[2]
+	if len($"Party".party[curr_att].attacks) >=4 :
+		$CanvasLayer/attack_options/Attack4.show()
+		$CanvasLayer/attack_options/Attack4.text = $"Party".party[curr_att].attacks[3]
+	$CanvasLayer/attack_options.find_child("Attack1").grab_focus()
+
+func _on_attack_1_pressed() -> void:
+	$Party.attack_types.append(0)
+	$CanvasLayer/attack_options.hide()
+	if curr_att == 0:
+		_start_choosing()
+	else:
+		_continue_choosing()
+
+func _on_attack_2_pressed() -> void:
+	$Party.attack_types.append(1)
+	$CanvasLayer/attack_options.hide()
+	if curr_att == 0:
+		_start_choosing()
+	else:
+		_continue_choosing()
