@@ -4,7 +4,7 @@ extends CharacterBody2D
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var anim_state = animation_tree.get("parameters/playback")
 
-enum player_states {IDLE, WALK_RIGHT, WALK_LEFT, ATTACK_1, ATTACK_2}
+enum player_states {IDLE, WALK_RIGHT, WALK_LEFT, ATTACK_1, ATTACK_2, ATTACK_3, HURT}
 var current_states = player_states.IDLE
 
 var attacking: bool = false
@@ -36,12 +36,18 @@ func _process(delta):
 			attack_1()
 		player_states.ATTACK_2:
 			attack_2()
+		player_states.ATTACK_3:
+			attack_3()
+		player_states.HURT:
+			hurt()
 	if attacking:
 		if $".".position.x >= $"..".party_target[current_att].position.x - 160:
 			if attack_type == 0:
 				current_states = player_states.ATTACK_1
 			elif attack_type == 1:
 				current_states = player_states.ATTACK_2
+			elif attack_type == 2:
+				current_states = player_states.ATTACK_3
 		else:
 			if $".".position.x < $"..".party_target[current_att].position.x - 160:
 				current_states = player_states.WALK_RIGHT
@@ -108,3 +114,11 @@ func attack_1():
 func attack_2():
 	animation_tree.set("parameters/Attack_2/blend_position", Vector2(1, 0))
 	anim_state.travel("Attack_2")	
+
+func attack_3():
+	animation_tree.set("parameters/Attack_3/blend_position", Vector2(1, 0))
+	anim_state.travel("Attack_3")	
+	
+func hurt():
+	animation_tree.set("parameters/Hurt/blend_position", Vector2(1, 0))
+	anim_state.travel("Hurt")	

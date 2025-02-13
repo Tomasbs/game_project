@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://Scripts/party.gd" id="1_vg8lf"]
 [ext_resource type="PackedScene" uid="uid://v16yiocxqqs" path="res://Scenes/dwarf.tscn" id="3_cyefl"]
-[ext_resource type="PackedScene" uid="uid://dxy5dxxbhmnuv" path="res://Scenes/adventurer.tscn" id="3_qulhh"]
+[ext_resource type="PackedScene" uid="uid://dxy5dxxbhmnuv" path="res://Scenes/adventurer.tscn" id="3_lh3mp"]
 
 [node name="Party" type="Node2D"]
 script = ExtResource("1_vg8lf")
 
-[node name="Adventurer" parent="." instance=ExtResource("3_qulhh")]
-
 [node name="Dwarf" parent="." instance=ExtResource("3_cyefl")]
+
+[node name="Adventurer" parent="." instance=ExtResource("3_lh3mp")]

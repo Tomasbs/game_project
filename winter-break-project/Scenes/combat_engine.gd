@@ -73,6 +73,10 @@ func show_combat_options():
 func show_attack_options():
 	_reset_focus()
 	$CanvasLayer/attack_options.show()
+	$CanvasLayer/attack_options/Attack1.hide()
+	$CanvasLayer/attack_options/Attack2.hide()
+	$CanvasLayer/attack_options/Attack3.hide()
+	$CanvasLayer/attack_options/Attack4.hide()
 	if len($"Party".party[curr_att].attacks) >= 1:
 		$CanvasLayer/attack_options/Attack1.show()
 		$CanvasLayer/attack_options/Attack1.text = $"Party".party[curr_att].attacks[0]
@@ -97,6 +101,14 @@ func _on_attack_1_pressed() -> void:
 
 func _on_attack_2_pressed() -> void:
 	$Party.attack_types.append(1)
+	$CanvasLayer/attack_options.hide()
+	if curr_att == 0:
+		_start_choosing()
+	else:
+		_continue_choosing()
+
+func _on_attack_3_pressed() -> void:
+	$Party.attack_types.append(2)
 	$CanvasLayer/attack_options.hide()
 	if curr_att == 0:
 		_start_choosing()
