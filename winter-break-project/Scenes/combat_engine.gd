@@ -3,8 +3,8 @@ var action_queue: Array = []
 var is_battling: bool = false
 var index: int = 0
 var curr_att: int = 0
-
-
+var attack_focus: int
+var enemy_focus: Array = []
 
 signal next_player
 
@@ -114,3 +114,11 @@ func _on_attack_3_pressed() -> void:
 		_start_choosing()
 	else:
 		_continue_choosing()
+
+func _on_party_starting_enemies():
+	for i in len($"EnemyGroup".enemies):
+		enemy_focus.append(randi() % len($"Party".party))
+	$"EnemyGroup".enemies[0].attack_begin(0, $"Party".party[enemy_focus[0]])
+
+func after_enemies_attack(current_att):
+	$"EnemyGroup".enemies[current_att].attack_begin(current_att, $"Party".party[enemy_focus[current_att]])

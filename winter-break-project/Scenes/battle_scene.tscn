@@ -92,6 +92,7 @@ text = "Attack4"
 [node name="Spawn Point" parent="." instance=ExtResource("3_kv37i")]
 
 [connection signal="next_player" from="." to="Party" method="_on_battle_scene_next_player"]
+[connection signal="starting_enemies" from="Party" to="." method="_on_party_starting_enemies"]
 [connection signal="pressed" from="CanvasLayer/combat_options/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="CanvasLayer/attack_options/Attack1" to="." method="_on_attack_1_pressed"]
 [connection signal="pressed" from="CanvasLayer/attack_options/Attack2" to="." method="_on_attack_2_pressed"]

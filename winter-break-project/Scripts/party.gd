@@ -7,6 +7,8 @@ var index: int = 0
 var party_target = []
 var attack_types: Array = []
 
+signal starting_enemies
+
 func _ready():
 	party = get_children()
 	if party.size() == 1:
@@ -49,9 +51,14 @@ func switch_focus(x, y):
 	party[x].focus()
 	party[y].unfocus()
 	
-func show_combat_options():
+func party_attack_over():
 	attack_types.clear()
 	$"..".curr_att = 0
-	combat_options.show()
-	combat_options.find_child("Attack").grab_focus()
-	
+	#combat_options.show()
+	#combat_options.find_child("Attack").grab_focus()	
+
+func _on_adventurer_enemy_turn():
+	emit_signal("starting_enemies")
+
+func _on_dwarf_enemy_turn():
+	emit_signal("starting_enemies")

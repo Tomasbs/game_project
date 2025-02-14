@@ -10,3 +10,6 @@ script = ExtResource("1_vg8lf")
 [node name="Dwarf" parent="." instance=ExtResource("3_cyefl")]
 
 [node name="Adventurer" parent="." instance=ExtResource("3_lh3mp")]
+
+[connection signal="enemy_turn" from="Dwarf" to="." method="_on_dwarf_enemy_turn"]
+[connection signal="enemy_turn" from="Adventurer" to="." method="_on_adventurer_enemy_turn"]
