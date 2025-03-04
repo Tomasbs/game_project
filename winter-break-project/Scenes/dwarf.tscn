@@ -1,6 +1,6 @@
 [gd_scene load_steps=114 format=3 uid="uid://v16yiocxqqs"]
 
-[ext_resource type="Script" path="res://Scenes/dwarf.gd" id="1_h8f1s"]
+[ext_resource type="Script" path="res://Scripts/dwarf.gd" id="1_h8f1s"]
 [ext_resource type="Texture2D" uid="uid://cmbswgce67mdy" path="res://Sprites/Dwarf/Dwarf Sprite Right Sheet 1.3v.png" id="2_qnfs8"]
 [ext_resource type="Texture2D" uid="uid://c4namtm36cyt4" path="res://Sprites/Dwarf/Dwarf Sprite Left Sheet 1.3v.png" id="3_xa0e0"]
 [ext_resource type="Texture2D" uid="uid://ci8n7dljen535" path="res://Sprites/Dwarf/Dwarf Hurt.png" id="4_tkydd"]
@@ -898,7 +898,7 @@ states/Idle/position = Vector2(391.8, 99.72)
 states/Walk/node = SubResource("AnimationNodeBlendSpace2D_v3xqg")
 states/Walk/position = Vector2(574.44, 93.936)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_o2m7u"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_u7t0m"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_khd0j"), "Walk", "Attack_1", SubResource("AnimationNodeStateMachineTransition_d8ja8"), "Attack_1", "Walk", SubResource("AnimationNodeStateMachineTransition_27qvy"), "Attack_2", "Walk", SubResource("AnimationNodeStateMachineTransition_4d5h7"), "Walk", "Attack_2", SubResource("AnimationNodeStateMachineTransition_wy7v0"), "Walk", "Attack_3", SubResource("AnimationNodeStateMachineTransition_rfran"), "Attack_3", "Walk", SubResource("AnimationNodeStateMachineTransition_mfblu"), "Hurt", "Idle", SubResource("AnimationNodeStateMachineTransition_eor8x"), "Idle", "Hurt", SubResource("AnimationNodeStateMachineTransition_ih2r6"), "Hurt", "Death", SubResource("AnimationNodeStateMachineTransition_rbyq1"), "Death", "End", SubResource("AnimationNodeStateMachineTransition_mu5ri")]
-graph_offset = Vector2(-132, -80)
+graph_offset = Vector2(-132, -185.735)
 
 [node name="Dwarf" type="CharacterBody2D"]
 scale = Vector2(6, 6)
@@ -908,7 +908,7 @@ script = ExtResource("1_h8f1s")
 sprite_frames = SubResource("SpriteFrames_gvy7n")
 animation = &"Idle"
 autoplay = "Idle"
-frame = 4
+frame = 2
 
 [node name="Focus" type="Sprite2D" parent="."]
 visible = false

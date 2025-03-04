@@ -30,8 +30,8 @@ func _ready():
 		enemies[2].position = $"../Spawn Point/4 Enemies 3".position
 		enemies[3].position = $"../Spawn Point/4 Enemies 4".position
 		for i in range(0, enemies.size()):
-			enemies[i].MAX_HEALTH = 6
-			enemies[i].health = 6
+			enemies[i].MAX_HEALTH = 2
+			enemies[i].health = 2
 	
 	for i in range(len(enemies)):
 		enemies[i].home_x = enemies[i].position.x
@@ -41,8 +41,9 @@ func enemy_attack_over(current_att):
 	$"..".after_enemies_attack(current_att)
 
 func show_combat_options():
-	combat_options.show()
-	combat_options.find_child("Attack").grab_focus()
+	$"..".show_combat_options()
+	#combat_options.show()
+	#combat_options.find_child("Attack").grab_focus()
 
 func clear_array():
 	$"..".enemy_focus.clear()

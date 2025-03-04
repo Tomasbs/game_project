@@ -4,7 +4,7 @@ extends CharacterBody2D
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var progress_bar: ProgressBar = $ProgressBar
 @onready var anim_state = animation_tree.get("parameters/playback")
-@export var MAX_HEALTH: float = 12
+@export var MAX_HEALTH: float = 4
 
 enum player_states {IDLE, WALK_RIGHT, WALK_LEFT, ATTACK_1, ATTACK_2, ATTACK_3, HURT, DEATH}
 var current_states = player_states.IDLE
@@ -21,7 +21,7 @@ var dead = false
 var home_x: int 
 var home_y: int
 
-var health: float = 12:
+var health: float = 4:
 	set(value):
 		health = value
 		_upadate_progress_bar()

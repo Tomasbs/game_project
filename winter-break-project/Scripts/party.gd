@@ -31,6 +31,9 @@ func _ready():
 		party[i].home_y = party[i].position.y
 		
 	#party[0].focus()
+	
+func show_combat_options():
+	$"..".show_combat_options()
 
 func _process(delta):
 	if len(party_target) == len(party):

@@ -1,6 +1,6 @@
 [gd_scene load_steps=91 format=3 uid="uid://xego64ihlv3o"]
 
-[ext_resource type="Texture2D" uid="uid://dl1pyrs46v672" path="res://Sprites/Swordsman/Royal Swordsman Left.png" id="1_fx5i6"]
+[ext_resource type="Texture2D" uid="uid://dl1pyrs46v672" path="res://Sprites/Swordsman/Royal Swordsman.png" id="1_fx5i6"]
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_xo0vh"]
 [ext_resource type="Texture2D" uid="uid://b4mmp8uokm2i" path="res://Sprites/Swordsman/Royal Swordsman Hurt .png" id="2_44pxg"]
 [ext_resource type="Texture2D" uid="uid://bemfxq1cpe054" path="res://Sprites/down-arrow-sticker(33x33).png" id="2_64npq"]
@@ -321,9 +321,6 @@ animations = [{
 "speed": 7.0
 }]
 
-[sub_resource type="Animation" id="Animation_l7wm8"]
-length = 0.001
-
 [sub_resource type="Animation" id="Animation_ov0gd"]
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -461,6 +458,9 @@ tracks/1/keys = {
 "update": 1,
 "values": ["Idle"]
 }
+
+[sub_resource type="Animation" id="Animation_l7wm8"]
+length = 0.001
 
 [sub_resource type="Animation" id="Animation_2osg8"]
 length = 1.14286
@@ -699,7 +699,7 @@ script = ExtResource("1_xo0vh")
 sprite_frames = SubResource("SpriteFrames_fagn3")
 animation = &"Idle"
 autoplay = "Idle"
-frame = 4
+frame = 3
 
 [node name="Focus" type="Sprite2D" parent="."]
 visible = false

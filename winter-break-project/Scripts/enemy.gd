@@ -97,7 +97,10 @@ func attack_begin(curr_att, focus):
 		if walk_back == false:
 			attacking = true
 	else:
-		$"..".enemy_attack_over(current_att + 1)
+		if current_att + 1 == $"..".enemies.size():
+			$"..".show_combat_options()
+		else:
+			$"..".enemy_attack_over(current_att + 1)
 		
 func _upadate_progress_bar():
 	progress_bar.value = (health/MAX_HEALTH) * 100
