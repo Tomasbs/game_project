@@ -32,9 +32,6 @@ func _ready():
 		
 	#party[0].focus()
 	
-func show_combat_options():
-	$"..".show_combat_options()
-
 func _process(delta):
 	if len(party_target) == len(party):
 		#for target in len(party):

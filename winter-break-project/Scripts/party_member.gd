@@ -104,8 +104,17 @@ func _upadate_progress_bar():
 func attack_begin(target, type):
 	current_att = target
 	attack_type = type
-	if walk_back == false:
-		attacking = true
+	if dead == false:
+		if walk_back == false:
+			attacking = true
+	else:
+		if current_att + 1 < len($"..".party_target):
+			$"..".party[current_att + 1].attack_begin(current_att + 1, $"..".attack_types[current_att]) 
+		elif $"..".party[-1].position.x <= $"..".party[-1].home_x:
+			if $"." == $"..".party[-1]:
+				emit_signal("enemy_turn")
+				$"..".party_target.clear()
+				$"..".party_attack_over()
 	
 func damage_dealer():
 	$'..'.party_target[current_att].take_damage(1)
