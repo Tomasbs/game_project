@@ -9,6 +9,7 @@ extends CharacterBody2D
 
 @export var MAX_HEALTH: float = 7
 
+var set_health: bool = false
 var attacking: bool = false
 var att_cd: bool = false
 var walk_back: bool = false
@@ -28,7 +29,10 @@ var health: float = 7:
 		health = value
 		_upadate_progress_bar()
 		if dead == false:
-			current_states = enemy_states.HURT
+			if set_health == true:
+				current_states = enemy_states.HURT
+			else:
+				set_health = true
 			
 func _ready():
 	pass
