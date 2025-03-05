@@ -4,7 +4,7 @@ extends Node2D
 
 var party: Array = []
 var index: int = 0
-var party_target = []
+var party_target: Array = []
 var attack_types: Array = []
 
 signal starting_enemies
@@ -53,7 +53,7 @@ func switch_focus(x, y):
 	
 func party_attack_over():
 	attack_types.clear()
-	$"..".curr_att = 0
+	#$"..".curr_att = 0
 	#combat_options.show()
 	#combat_options.find_child("Attack").grab_focus()	
 

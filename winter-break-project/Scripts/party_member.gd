@@ -69,13 +69,13 @@ func _process(delta):
 		else:
 			if $".".position.x < $"..".party_target[current_att].position.x - 160:
 				current_states = player_states.WALK_RIGHT
-				$".".position.x += 400 * get_physics_process_delta_time()
+				$".".position.x += 700 * get_physics_process_delta_time()
 			if $".".position.y < $"..".party_target[current_att].position.y:
 				current_states = player_states.WALK_RIGHT
-				$".".position.y += 250 * get_physics_process_delta_time()
+				$".".position.y += 400 * get_physics_process_delta_time()
 			if $".".position.y > $"..".party_target[current_att].position.y:
 				current_states = player_states.WALK_RIGHT
-				$".".position.y -= 250 * get_physics_process_delta_time()
+				$".".position.y -= 400 * get_physics_process_delta_time()
 	if walk_back:
 		if $".".position.x <= home_x:
 			if current_att + 1 < len($"..".party_target):
@@ -92,11 +92,11 @@ func _process(delta):
 		else:
 			if $".".position.x > home_x:
 				current_states = player_states.WALK_LEFT
-				$".".position.x -= 420 * get_physics_process_delta_time()
+				$".".position.x -= 720 * get_physics_process_delta_time()
 			if $".".position.y > home_y:
-				$".".position.y -= 250 * get_physics_process_delta_time()
+				$".".position.y -= 400 * get_physics_process_delta_time()
 			if $".".position.y < home_y:
-				$".".position.y += 250 * get_physics_process_delta_time()
+				$".".position.y += 400 * get_physics_process_delta_time()
 				
 func _upadate_progress_bar():
 	progress_bar.value = (health/MAX_HEALTH) * 100
