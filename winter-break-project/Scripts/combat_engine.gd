@@ -7,6 +7,7 @@ var attack_focus: int
 var enemy_focus: Array = []
 var party_dead: bool = false
 
+
 signal next_player
 
 func _ready():
@@ -15,12 +16,22 @@ func _ready():
 func _process(_delta):
 	if not $CanvasLayer/combat_options.visible and not is_battling and not $CanvasLayer/attack_options.visible:
 		if Input.is_action_just_pressed("up"):
-			if index > 0:
+			if index >= 0:
 				index -= 1
-				switch_focus(index, index + 1)
+				if index < 0:
+					index = $EnemyGroup.enemies.size() - 1
+					switch_focus(index, 0)
+				else:
+					switch_focus(index, index + 1)
+			#if $EnemyGroup.enemies[index].dead == true:
+			#index -= 1
 		if Input.is_action_just_pressed("down"):
-			if index < $EnemyGroup.enemies.size() - 1:
+			if index <= $EnemyGroup.enemies.size() - 1:
 				index += 1
+				if index > $EnemyGroup.enemies.size() - 1:
+					index = 0
+				#if $EnemyGroup.enemies[index].dead == true:
+					#index += 1
 				switch_focus(index, index - 1)
 		if Input.is_action_just_pressed("accept"):
 			if len($"Party".party_target) != len($"Party".party):
@@ -52,7 +63,11 @@ func _reset_focus():
 
 func _start_choosing():
 	_reset_focus()
-	$EnemyGroup.enemies[0].focus()
+	for i in range(0, $EnemyGroup.enemies.size()):
+		if $EnemyGroup.enemies[i].dead == false:
+			$"EnemyGroup".enemies[i]._focus.show()
+			break
+	#$EnemyGroup.enemies[0].focus()
 
 func _continue_choosing():
 	_reset_focus()
