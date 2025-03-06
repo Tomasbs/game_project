@@ -14,7 +14,6 @@ func _ready():
 	show_combat_options()
 	
 func _process(_delta):
-	print(curr_att)
 	if not $CanvasLayer/combat_options.visible and not is_battling and not $CanvasLayer/attack_options.visible:
 		if Input.is_action_just_pressed("up"):
 			if index >= 0:
@@ -37,8 +36,6 @@ func _process(_delta):
 		if Input.is_action_just_pressed("accept"):
 			if len($"Party".party_target) != len($"Party".party):
 				curr_att += 1
-				if curr_att == len($Party.party):
-					curr_att = 0
 				$"Party".party_target.push_back($EnemyGroup.enemies[index])	
 			action_queue.push_back(index)
 			emit_signal("next_player")
@@ -81,12 +78,6 @@ func _on_attack_pressed():
 		if $Party.party[i].dead == false:
 			$"Party".party[i]._focus.show()
 			break
-		else:
-			$Party.attack_types.append(0)
-			$Party.party_target.append(0)
-			curr_att += 1
-			if curr_att == len($Party.party):
-				curr_att = 0
 	$CanvasLayer/combat_options.hide()
 	show_attack_options()
 			
@@ -105,12 +96,6 @@ func show_combat_options():
 		$CanvasLayer/combat_options.find_child("Attack").grab_focus()
 	
 func show_attack_options():
-	if $Party.party[curr_att].dead == true:
-		$Party.attack_types.append(0)
-		$Party.party_target.append(0)
-		curr_att += 1
-		if curr_att == len($Party.party):
-			curr_att = 0
 	_reset_focus()
 	$CanvasLayer/attack_options.show()
 	$CanvasLayer/attack_options/Attack1.hide()
