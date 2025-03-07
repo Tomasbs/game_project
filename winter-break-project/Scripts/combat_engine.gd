@@ -65,15 +65,25 @@ func _start_choosing():
 	_reset_focus()
 	for i in range(0, $EnemyGroup.enemies.size()):
 		if $EnemyGroup.enemies[i].dead == false:
+			index = i
 			$"EnemyGroup".enemies[i]._focus.show()
 			break
 	#$EnemyGroup.enemies[0].focus()
 
 func _continue_choosing():
 	_reset_focus()
-	$EnemyGroup.enemies[0].focus()
+	for i in range(0, $EnemyGroup.enemies.size()):
+		if $EnemyGroup.enemies[i].dead == false:
+			index = i
+			$"EnemyGroup".enemies[i]._focus.show()
+			break
+	#$EnemyGroup.enemies[0].focus()
 	
 func _on_attack_pressed():
+	if $Party.party[0].dead == true:
+		dead_man_turn()
+		$CanvasLayer/combat_options.hide()
+		return
 	for i in range(0, $Party.party.size()):
 		if $Party.party[i].dead == false:
 			$"Party".party[i]._focus.show()
@@ -96,6 +106,10 @@ func show_combat_options():
 		$CanvasLayer/combat_options.find_child("Attack").grab_focus()
 	
 func show_attack_options():
+	if $Party.party[curr_att].dead == true:
+		dead_man_turn()
+		$CanvasLayer/combat_options.hide()
+		return
 	_reset_focus()
 	$CanvasLayer/attack_options.show()
 	$CanvasLayer/attack_options/Attack1.hide()
@@ -142,8 +156,23 @@ func _on_attack_3_pressed() -> void:
 
 func _on_party_starting_enemies():
 	for i in len($"EnemyGroup".enemies):
-		enemy_focus.append(randi() % len($"Party".party))
+		#enemy_focus.append(randi() % len($"Party".party))
+		enemy_focus.append(2)
 	$"EnemyGroup".enemies[0].attack_begin(0, $"Party".party[enemy_focus[0]])
 
 func after_enemies_attack(current_att):
 	$"EnemyGroup".enemies[current_att].attack_begin(current_att, $"Party".party[enemy_focus[current_att]])
+	
+func dead_man_turn():
+	$Party.party_target.append(0)
+	$Party.attack_types.append(0)
+	curr_att += 1
+	if curr_att <= len($Party.party) - 1:
+		emit_signal("next_player")
+		show_attack_options()
+	else:
+		pass
+		#print($Party.index)
+		#$Party.index = 0
+		#print($Party.index)
+		

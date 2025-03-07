@@ -34,7 +34,16 @@ func _ready():
 	
 func _process(delta):
 	if len(party_target) == len(party):
+		index = 0
 		#for target in len(party):
+		#$"../EnemyGroup".enemies[-1].unfocus()
+		for i in range(0, len(party)):
+			party[i].unfocus()
+		for i in range(0, len($"../EnemyGroup".enemies)):
+			if party_target[-1] is not int:
+				$"../EnemyGroup".enemies[i].unfocus()
+			else:
+				party_target[-2].unfocus()
 		party[0].attack_begin(0, attack_types[0]) 
 
 func _on_battle_scene_next_player() -> void:
@@ -43,7 +52,7 @@ func _on_battle_scene_next_player() -> void:
 		index += 1
 		switch_focus(index, index - 1)
 	else:
-		index = 0
+		#index = 0
 		switch_focus(index, party.size() -1)
 	
 

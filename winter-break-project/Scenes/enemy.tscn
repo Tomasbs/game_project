@@ -699,7 +699,7 @@ script = ExtResource("1_xo0vh")
 sprite_frames = SubResource("SpriteFrames_fagn3")
 animation = &"Idle"
 autoplay = "Idle"
-frame = 3
+frame = 2
 
 [node name="Focus" type="Sprite2D" parent="."]
 visible = false

@@ -61,13 +61,13 @@ func _process(delta):
 		else:
 			if $".".position.x > att_focus.home_x + 160:
 				current_states = enemy_states.WALK_LEFT
-				$".".position.x -= 400 * get_physics_process_delta_time()
+				$".".position.x -= 700 * get_physics_process_delta_time()
 			if $".".position.y < att_focus.home_y:
 				current_states = enemy_states.WALK_LEFT
-				$".".position.y += 250 * get_physics_process_delta_time()
+				$".".position.y += 450 * get_physics_process_delta_time()
 			if $".".position.y > att_focus.home_y:
 				current_states = enemy_states.WALK_LEFT
-				$".".position.y -= 250 * get_physics_process_delta_time()
+				$".".position.y -= 450 * get_physics_process_delta_time()
 	if walk_back:
 		if $".".position.x >= home_x:
 			if current_att + 1 < len($"..".enemies):
@@ -84,11 +84,11 @@ func _process(delta):
 		else:
 			if $".".position.x < home_x:
 				current_states = enemy_states.WALK_RIGHT
-				$".".position.x += 420 * get_physics_process_delta_time()
+				$".".position.x += 720 * get_physics_process_delta_time()
 			if $".".position.y > home_y:
-				$".".position.y -= 250 * get_physics_process_delta_time()
+				$".".position.y -= 450 * get_physics_process_delta_time()
 			if $".".position.y < home_y:
-				$".".position.y += 250 * get_physics_process_delta_time()
+				$".".position.y += 450 * get_physics_process_delta_time()
 			
 func attack_begin(curr_att, focus):
 	current_att = curr_att
