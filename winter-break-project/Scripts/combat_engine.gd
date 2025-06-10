@@ -6,45 +6,51 @@ var curr_att: int = 0
 var attack_focus: int
 var enemy_focus: Array = []
 var party_dead: bool = false
+var character_selection = true
 
+@onready var adventurer_scene : PackedScene = preload("res://Scenes/adventurer.tscn")
+@onready var dwarf_scene : PackedScene = preload("res://Scenes/dwarf.tscn")
+@onready var guard_scene : PackedScene = preload("res://Scenes/enemy.tscn")
 
 signal next_player
 
 func _ready():
-	show_combat_options()
+	pass
+	#show_combat_options()
 	
 func _process(_delta):
-	if not $CanvasLayer/combat_options.visible and not is_battling and not $CanvasLayer/attack_options.visible:
-		if Input.is_action_just_pressed("up"):
-			if index >= 0:
-				index -= 1
-				if index < 0:
-					index = $EnemyGroup.enemies.size() - 1
-					switch_focus(index, 0)
-				else:
-					switch_focus(index, index + 1)
-			#if $EnemyGroup.enemies[index].dead == true:
-			#index -= 1
-		if Input.is_action_just_pressed("down"):
-			if index <= $EnemyGroup.enemies.size() - 1:
-				index += 1
-				if index > $EnemyGroup.enemies.size() - 1:
-					index = 0
+	if not character_selection:
+		if not $CanvasLayer/combat_options.visible and not is_battling and not $CanvasLayer/attack_options.visible:
+			if Input.is_action_just_pressed("up"):
+				if index >= 0:
+					index -= 1
+					if index < 0:
+						index = $EnemyGroup.enemies.size() - 1
+						switch_focus(index, 0)
+					else:
+						switch_focus(index, index + 1)
 				#if $EnemyGroup.enemies[index].dead == true:
-					#index += 1
-				switch_focus(index, index - 1)
-		if Input.is_action_just_pressed("accept"):
-			if len($"Party".party_target) != len($"Party".party):
-				curr_att += 1
-				$"Party".party_target.push_back($EnemyGroup.enemies[index])	
-			action_queue.push_back(index)
-			emit_signal("next_player")
-			
-	if action_queue.size() == $"Party".party.size() and not is_battling:
-		is_battling = true
-		#$"../Party/Player/Focus".hide()
-		$"Party".party[0]._focus.hide()
-		_action(action_queue)
+				#index -= 1
+			if Input.is_action_just_pressed("down"):
+				if index <= $EnemyGroup.enemies.size() - 1:
+					index += 1
+					if index > $EnemyGroup.enemies.size() - 1:
+						index = 0
+					#if $EnemyGroup.enemies[index].dead == true:
+						#index += 1
+					switch_focus(index, index - 1)
+			if Input.is_action_just_pressed("accept"):
+				if len($"Party".party_target) != len($"Party".party):
+					curr_att += 1
+					$"Party".party_target.push_back($EnemyGroup.enemies[index])	
+				action_queue.push_back(index)
+				emit_signal("next_player")
+	if not character_selection:
+		if action_queue.size() == $"Party".party.size() and not is_battling:
+			is_battling = true
+			#$"../Party/Player/Focus".hide()
+			$"Party".party[0]._focus.hide()
+			_action(action_queue)
 		
 func _action(stack):
 	$EnemyGroup.enemies[index].unfocus()
@@ -176,3 +182,50 @@ func dead_man_turn():
 		#$Party.index = 0
 		#print($Party.index)
 		
+func _on_adventurer_pressed():
+	if $Party.party.size() == 0:
+		$CanvasLayer/party_options/Finish_party.show()
+	var adventurer_temp = adventurer_scene.instantiate()
+	$Party.add_child(adventurer_temp)
+	$Party.party.append(adventurer_temp)
+	if $Party.party.size() == 4:
+		$CanvasLayer/party_options.hide()
+		$CanvasLayer/enemy_options.show()
+
+
+func _on_dwarf_pressed():
+	if $Party.party.size() == 0:
+		$CanvasLayer/party_options/Finish_party.show()
+	var dwarf_temp = dwarf_scene.instantiate()
+	$Party.add_child(dwarf_temp)
+	$Party.party.append(dwarf_temp)
+	if $Party.party.size() == 4:
+		$CanvasLayer/party_options.hide()
+		$CanvasLayer/enemy_options.show()
+
+
+func _on_finish_party_pressed():
+	$CanvasLayer/party_options.hide()
+	$CanvasLayer/enemy_options.show()
+
+
+func _on_guard_pressed():
+	if $EnemyGroup.enemies.size() == 0:
+		$CanvasLayer/enemy_options/Finish_enemy.show()
+	var guard_temp = guard_scene.instantiate()
+	$EnemyGroup.add_child(guard_temp)
+	$EnemyGroup.enemies.append(guard_temp)
+	if $EnemyGroup.enemies.size() == 4:
+		$CanvasLayer/enemy_options.hide()
+		$Party.character_placement()
+		$EnemyGroup.character_placement()
+		show_combat_options()
+		character_selection = false
+
+
+func _on_finish_enemy_pressed():
+	$CanvasLayer/enemy_options.hide()
+	$Party.character_placement()
+	$EnemyGroup.character_placement()
+	show_combat_options()
+	character_selection = false

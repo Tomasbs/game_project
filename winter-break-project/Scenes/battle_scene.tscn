@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bbbo0lmh2ykln"]
+[gd_scene load_steps=6 format=3 uid="uid://bbbo0lmh2ykln"]
 
 [ext_resource type="PackedScene" uid="uid://oe4ljcw2dpb6" path="res://Scenes/enemy_group.tscn" id="1_6vnp5"]
 [ext_resource type="Script" path="res://Scripts/combat_engine.gd" id="1_18plu"]
 [ext_resource type="PackedScene" uid="uid://n445uhrqceva" path="res://Scenes/party.tscn" id="2_48e5n"]
 [ext_resource type="PackedScene" uid="uid://cn18ia7sr02y5" path="res://Scenes/spawn_point.tscn" id="3_kv37i"]
+[ext_resource type="PackedScene" uid="uid://xego64ihlv3o" path="res://Scenes/enemy.tscn" id="3_m2ahu"]
 
 [node name="BattleScene" type="Node2D"]
 script = ExtResource("1_18plu")
@@ -11,11 +12,76 @@ script = ExtResource("1_18plu")
 [node name="EnemyGroup" parent="." instance=ExtResource("1_6vnp5")]
 position = Vector2(-12, -10)
 
+[node name="Enemy" parent="EnemyGroup" instance=ExtResource("3_m2ahu")]
+
 [node name="Party" parent="." instance=ExtResource("2_48e5n")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="party_options" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -270.0
+offset_right = 276.0
+offset_bottom = -128.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Adventurer" type="Button" parent="CanvasLayer/party_options"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Adventurer"
+
+[node name="Dwarf" type="Button" parent="CanvasLayer/party_options"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Dwarf"
+
+[node name="Finish_party" type="Button" parent="CanvasLayer/party_options"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Finish Selecting
+"
+
+[node name="enemy_options" type="HBoxContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -270.0
+offset_right = 276.0
+offset_bottom = -128.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Guard" type="Button" parent="CanvasLayer/enemy_options"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Guard
+"
+
+[node name="Finish_enemy" type="Button" parent="CanvasLayer/enemy_options"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Finish Selecting
+"
+
 [node name="combat_options" type="HBoxContainer" parent="CanvasLayer"]
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -93,6 +159,11 @@ text = "Attack4"
 
 [connection signal="next_player" from="." to="Party" method="_on_battle_scene_next_player"]
 [connection signal="starting_enemies" from="Party" to="." method="_on_party_starting_enemies"]
+[connection signal="pressed" from="CanvasLayer/party_options/Adventurer" to="." method="_on_adventurer_pressed"]
+[connection signal="pressed" from="CanvasLayer/party_options/Dwarf" to="." method="_on_dwarf_pressed"]
+[connection signal="pressed" from="CanvasLayer/party_options/Finish_party" to="." method="_on_finish_party_pressed"]
+[connection signal="pressed" from="CanvasLayer/enemy_options/Guard" to="." method="_on_guard_pressed"]
+[connection signal="pressed" from="CanvasLayer/enemy_options/Finish_enemy" to="." method="_on_finish_enemy_pressed"]
 [connection signal="pressed" from="CanvasLayer/combat_options/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="CanvasLayer/attack_options/Attack1" to="." method="_on_attack_1_pressed"]
 [connection signal="pressed" from="CanvasLayer/attack_options/Attack2" to="." method="_on_attack_2_pressed"]

@@ -85,6 +85,7 @@ func _process(delta):
 				current_states = player_states.IDLE
 				walk_back = false
 				if $"." == $"..".party[-1]:
+					print("HAHAHA")
 					emit_signal("enemy_turn")
 				$"..".party_attack_over()
 				#$"..".show_combat_options()
@@ -117,7 +118,7 @@ func attack_begin(target, type):
 				$"..".party_attack_over()
 	
 func damage_dealer():
-	$'..'.party_target[current_att].take_damage(1)
+	$'..'.party_target[current_att].take_damage(6)
 	
 func attack_over():
 	if current_att + 1 == len($"..".party_target):

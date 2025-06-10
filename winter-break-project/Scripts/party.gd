@@ -10,7 +10,11 @@ var attack_types: Array = []
 signal starting_enemies
 
 func _ready():
-	party = get_children()
+	pass
+	#party = get_children()
+	#party[0].focus()
+	
+func character_placement():
 	if party.size() == 1:
 		party[0].position = $"../Spawn Point/1 Party Member".position
 	elif party.size() == 2:
@@ -29,22 +33,21 @@ func _ready():
 	for i in range(len(party)):
 		party[i].home_x = party[i].position.x
 		party[i].home_y = party[i].position.y
-		
-	#party[0].focus()
 	
 func _process(delta):
-	if len(party_target) == len(party):
-		index = 0
-		#for target in len(party):
-		#$"../EnemyGroup".enemies[-1].unfocus()
-		for i in range(0, len(party)):
-			party[i].unfocus()
-		for i in range(0, len($"../EnemyGroup".enemies)):
-			if party_target[-1] is not int:
-				$"../EnemyGroup".enemies[i].unfocus()
-			else:
-				party_target[-2].unfocus()
-		party[0].attack_begin(0, attack_types[0]) 
+	if not $"..".character_selection:
+		if len(party_target) == len(party):
+			index = 0
+			#for target in len(party):
+			#$"../EnemyGroup".enemies[-1].unfocus()
+			for i in range(0, len(party)):
+				party[i].unfocus()
+			for i in range(0, len($"../EnemyGroup".enemies)):
+				if party_target[-1] is not int:
+					$"../EnemyGroup".enemies[i].unfocus()
+				else:
+					party_target[-2].unfocus()
+			party[0].attack_begin(0, attack_types[0]) 
 
 func _on_battle_scene_next_player() -> void:
 	if index < party.size() - 1:

@@ -6,7 +6,13 @@ var enemies: Array = []
 
 
 func _ready():
-	enemies = get_children()
+	pass
+	#enemies = get_children()
+	
+func _process(delta):
+	pass
+		
+func character_placement():
 	if enemies.size() == 1:
 		enemies[0].position = $"../Spawn Point/1 Enemy".position
 		enemies[0].MAX_HEALTH = 13
