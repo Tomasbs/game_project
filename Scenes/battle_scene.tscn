@@ -1,0 +1,99 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbbo0lmh2ykln"]
+
+[ext_resource type="PackedScene" uid="uid://oe4ljcw2dpb6" path="res://Scenes/enemy_group.tscn" id="1_6vnp5"]
+[ext_resource type="Script" path="res://Scripts/combat_engine.gd" id="1_18plu"]
+[ext_resource type="PackedScene" uid="uid://n445uhrqceva" path="res://Scenes/party.tscn" id="2_48e5n"]
+[ext_resource type="PackedScene" uid="uid://cn18ia7sr02y5" path="res://Scenes/spawn_point.tscn" id="3_kv37i"]
+
+[node name="BattleScene" type="Node2D"]
+script = ExtResource("1_18plu")
+
+[node name="EnemyGroup" parent="." instance=ExtResource("1_6vnp5")]
+position = Vector2(-12, -10)
+
+[node name="Party" parent="." instance=ExtResource("2_48e5n")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="combat_options" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -369.0
+offset_top = -206.0
+offset_right = 307.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Attack" type="Button" parent="CanvasLayer/combat_options"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Attack"
+
+[node name="Inventory" type="Button" parent="CanvasLayer/combat_options"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Inventory"
+
+[node name="Run" type="Button" parent="CanvasLayer/combat_options"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Run"
+
+[node name="attack_options" type="HBoxContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -369.0
+offset_top = -207.0
+offset_right = 306.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+
+[node name="Attack1" type="Button" parent="CanvasLayer/attack_options"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Attack1"
+
+[node name="Attack2" type="Button" parent="CanvasLayer/attack_options"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Attack2"
+
+[node name="Attack3" type="Button" parent="CanvasLayer/attack_options"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Attack3"
+
+[node name="Attack4" type="Button" parent="CanvasLayer/attack_options"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Attack4"
+
+[node name="Spawn Point" parent="." instance=ExtResource("3_kv37i")]
+
+[connection signal="next_player" from="." to="Party" method="_on_battle_scene_next_player"]
+[connection signal="starting_enemies" from="Party" to="." method="_on_party_starting_enemies"]
+[connection signal="pressed" from="CanvasLayer/combat_options/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="CanvasLayer/attack_options/Attack1" to="." method="_on_attack_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/attack_options/Attack2" to="." method="_on_attack_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/attack_options/Attack3" to="." method="_on_attack_3_pressed"]

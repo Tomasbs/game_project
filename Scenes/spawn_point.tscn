@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://cn18ia7sr02y5"]
+
+[node name="Spawn Point" type="Node2D"]
+
+[node name="1 Party Member" type="Marker2D" parent="."]
+position = Vector2(475, 500)
+
+[node name="2 Party Member 1" type="Marker2D" parent="."]
+position = Vector2(630, 630)
+
+[node name="2 Party Member 2" type="Marker2D" parent="."]
+position = Vector2(280, 460)
+
+[node name="3 Party Member 1" type="Marker2D" parent="."]
+position = Vector2(250, 300)
+
+[node name="3 Party Member 2" type="Marker2D" parent="."]
+position = Vector2(540, 460)
+
+[node name="3 Party Member 3" type="Marker2D" parent="."]
+position = Vector2(325, 690)
+
+[node name="4 Party Member 1" type="Marker2D" parent="."]
+position = Vector2(275, 250)
+
+[node name="4 Party Member 2" type="Marker2D" parent="."]
+position = Vector2(515, 375)
+
+[node name="4 Party Member 3" type="Marker2D" parent="."]
+position = Vector2(260, 570)
+
+[node name="4 Party Member 4" type="Marker2D" parent="."]
+position = Vector2(510, 720)
+
+[node name="1 Enemy" type="Marker2D" parent="."]
+position = Vector2(1205, 501)
+
+[node name="2 Enemies 1" type="Marker2D" parent="."]
+position = Vector2(1050, 631)
+
+[node name="2 Enemies 2" type="Marker2D" parent="."]
+position = Vector2(1400, 461)
+
+[node name="3 Enemies 1" type="Marker2D" parent="."]
+position = Vector2(1439, 301)
+
+[node name="3 Enemies 2" type="Marker2D" parent="."]
+position = Vector2(1140, 461)
+
+[node name="3 Enemies 3" type="Marker2D" parent="."]
+position = Vector2(1355, 691)
+
+[node name="4 Enemies 1" type="Marker2D" parent="."]
+position = Vector2(1405, 251)
+
+[node name="4 Enemies 2" type="Marker2D" parent="."]
+position = Vector2(1165, 376)
+
+[node name="4 Enemies 3" type="Marker2D" parent="."]
+position = Vector2(1420, 571)
+
+[node name="4 Enemies 4" type="Marker2D" parent="."]
+position = Vector2(1170, 721)

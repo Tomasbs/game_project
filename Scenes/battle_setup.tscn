@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://x4g75mt4v4ed"]
+
+[ext_resource type="Script" path="res://Scripts/battle_setup.gd" id="1_o07vd"]
+[ext_resource type="PackedScene" uid="uid://bbbo0lmh2ykln" path="res://Scenes/battle_scene.tscn" id="2_8uu1k"]
+
+[node name="Battle_Setup" type="Node2D"]
+script = ExtResource("1_o07vd")
+
+[node name="BattleScene" parent="." instance=ExtResource("2_8uu1k")]
+
+[node name="CanvasLayer" parent="BattleScene" index="2"]
+visible = false
+
+[node name="CharacterSelection" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="CharacterSelection"]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CharacterSelection/CanvasLayer"]
+offset_left = 488.0
+offset_top = 834.0
+offset_right = 1121.0
+offset_bottom = 981.0
+
+[node name="Button" type="Button" parent="CharacterSelection/CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Adventurer"
+
+[node name="Button2" type="Button" parent="CharacterSelection/CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Dwarf"
+
+[node name="Button3" type="Button" parent="CharacterSelection/CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Done Choosing
+"
+
+[connection signal="pressed" from="CharacterSelection/CanvasLayer/HBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CharacterSelection/CanvasLayer/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="CharacterSelection/CanvasLayer/HBoxContainer/Button3" to="." method="_on_button_3_pressed"]
+
+[editable path="BattleScene"]
