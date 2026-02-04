@@ -127,7 +127,10 @@ func attack_over():
 	walk_back = true
 	
 func take_damage(value):
-	health -= value
+	if health - value < 0:
+		health = 0
+	else:
+		health -= value
 	
 func on_states_reset() :
 	current_states = player_states.IDLE

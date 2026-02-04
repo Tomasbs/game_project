@@ -13,6 +13,13 @@ signal next_player
 	
 	
 func _process(_delta):
+	if sum_health($Party.party) == 0 and done_choosing:
+		$CanvasLayer/Defeat.show()
+		$CanvasLayer/combat_options.hide()
+	if sum_health($EnemyGroup.enemies) == 0 and done_choosing:
+		$CanvasLayer/Victory.show()
+		$CanvasLayer/combat_options.hide()
+	
 	if not $CanvasLayer/combat_options.visible and not is_battling and not $CanvasLayer/attack_options.visible:
 		if Input.is_action_just_pressed("up"):
 			if index >= 0:
@@ -56,6 +63,12 @@ func _action(stack):
 	#$"../Party/Player/Focus".show()
 	#show_choice()			
 	
+func sum_health(array):
+	var total = 0
+	for i in array:
+		total += i.health
+	return total
+
 func _reset_focus():
 	index = 0
 	for enemy in $EnemyGroup.enemies:
